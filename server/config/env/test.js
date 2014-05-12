@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    db: 'mongodb://kevin:melaude@oceanic.mongohq.com:10031/melaude',
+    db: 'mongodb://localhost/mean-test',
     port: 3001,
     app: {
         name: 'MEAN - A Modern Stack - Test'
