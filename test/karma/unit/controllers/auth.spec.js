@@ -45,12 +45,11 @@
 
                 spyOn($rootScope, '$emit');
                 // test expected GET request
-                $httpBackend.when('POST','/login').respond(200, 'Fred');
+                $httpBackend.when('POST','/login').respond(200, {user: 'Fred'});
                 scope.login();
                 $httpBackend.flush();
                 // test scope value
                 expect($rootScope.user).toEqual('Fred');
-
                 expect($rootScope.$emit).toHaveBeenCalledWith('loggedin');
                 expect($location.url()).toEqual('/');
             });
@@ -109,12 +108,12 @@
 
                 spyOn($rootScope, '$emit');
                 // test expected GET request
-                scope.user.fullname = 'Fred';
+                scope.user.name = 'Fred';
                 $httpBackend.when('POST','/register').respond(200, 'Fred');
                 scope.register();
                 $httpBackend.flush();
                 // test scope value
-                expect($rootScope.user).toBe('Fred');
+                expect($rootScope.user.name).toBe('Fred');
                 expect(scope.registerError).toEqual(0);
                 expect($rootScope.$emit).toHaveBeenCalledWith('loggedin');
                 expect($location.url()).toBe('/');

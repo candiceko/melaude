@@ -1,36 +1,9 @@
 'use strict';
 
 //Setting up route
-angular.module('mean.auth').config(['$stateProvider', '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider) {
-
-        //================================================
-        // Check if the user is connected
-        //================================================
-        var checkLoggedin = function($q, $timeout, $http, $location) {
-            // Initialize a new promise
-            var deferred = $q.defer();
-
-            // Make an AJAX call to check if the user is logged in
-            $http.get('/loggedin').success(function(user) {
-                // Authenticated
-                if (user !== '0')
-                    $timeout(deferred.resolve, 0);
-
-                // Not Authenticated
-                else {
-                    $timeout(function() {
-                        deferred.reject();
-                    }, 0);
-                    $location.url('/login');
-                }
-            });
-
-            return deferred.promise;
-        };
-        //================================================
-        // Check if the user is not conntect
-        //================================================
+angular.module('mean.auth').config(['$stateProvider',
+    function($stateProvider) {
+        // Check if the user is not conntected
         var checkLoggedOut = function($q, $timeout, $http, $location) {
             // Initialize a new promise
             var deferred = $q.defer();
@@ -39,24 +12,16 @@ angular.module('mean.auth').config(['$stateProvider', '$urlRouterProvider',
             $http.get('/loggedin').success(function(user) {
                 // Authenticated
                 if (user !== '0') {
-                    $timeout(function() {
-                        deferred.reject();
-                    }, 0);
+                    $timeout(deferred.reject);
                     $location.url('/login');
-
                 }
 
                 // Not Authenticated
-                else {
-                    $timeout(deferred.resolve, 0);
-
-                }
+                else $timeout(deferred.resolve);
             });
 
             return deferred.promise;
         };
-        //================================================
-
 
         // states for my app
         $stateProvider
@@ -75,4 +40,4 @@ angular.module('mean.auth').config(['$stateProvider', '$urlRouterProvider',
                 }
             });
     }
-])
+]);
