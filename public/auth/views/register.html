@@ -4,12 +4,12 @@
     </div>
     <div class="alert alert-danger animated fadeIn" ng-show="usernameError">{{usernameError}}</div>
 
-    <h1>Register</h1>
+    <h1>make your account (it's free)</h1>
     <form ng-submit="register()" class="signup form-horizontal">
         <div class="form-group">
-            <label for="name" class="col-md-4 control-label">Full Name</label>
+            <label for="name" class="col-md-4 control-label">Display Name</label>
             <div class="col-md-8">
-                <input id="name" type="text" name="name" placeholder="Full name" class="form-control" ng-model="user.name"/>
+                <input id="name" type="text" name="name" placeholder="Display Name" class="form-control" ng-model="user.name"/>
             </div>
         </div>
         <div class="form-group">
@@ -38,8 +38,25 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-4 col-md-8">
-                <button type="submit" class="btn btn-primary">Sign up</button>&nbsp;
-                or&nbsp;<a ui-sref='auth.login' class="show-login">login</a>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox">&nbsp;I'd like to receive email updates from melaude.
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox">&nbsp;I have read and agree to melaud's <a href="">Terms of Use</a> and <a href="">Privacy Agreement</a>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <button type="submit" class="btn btn-primary btn-block">sign up</button>
             </div>
         </div>
     </form>
