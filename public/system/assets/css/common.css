@@ -42,7 +42,8 @@ footer p {
 }
 
 /** Registration Form **/
-.registration .has-error .help-block .help-message, .registration .has-success .help-block .help-message {
+.registration .has-error .help-block .help-message, .registration .has-success .help-block .help-message,
+.login .has-error .help-block .help-message, .login .has-success .help-block .help-message {
     color: #737373;
 }
 

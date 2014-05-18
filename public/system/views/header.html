@@ -18,6 +18,8 @@
     <ul class="navbar-nav nav" data-ng-hide="global.authenticated">
         <li ng-if="isState('auth.login')"><span><strong><a>help</a> / <a>faq</a></strong></span>
         </li>
+        <li ng-if="isState('home')"><a ui-sref="auth.register"><strong>register</strong></a></li>
+        <li ng-if="isState('home')"><a ui-sref="auth.login"><strong>log in</strong></a></li>
         <li class="divider-vertical"></li>
         <li ng-if="isState('auth.register')"><span>already have an account?&nbsp;<a ui-sref='auth.login'><strong>log in</strong></a></span>
         </li>

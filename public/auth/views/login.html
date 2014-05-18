@@ -1,16 +1,49 @@
-<div data-ng-controller="LoginCtrl">
+<div data-ng-controller="LoginCtrl" class="login">
     <div class="alert alert-danger animated fadeIn" ng-show="loginerror">{{loginerror}}</div>
     <h1>sign in</h1>
-    <form  ng-submit="login()" class="signin form-horizontal">
-        <div class="form-group">
-            <label for="email" class="">Email Address</label>
-            <input required id="email" type="email" name="email" placeholder="Email" class="form-control" ng-model="user.email"/>
+    <form  ng-submit="login(loginForm)" name="loginForm" class="signin" novalidate>
+
+         <!-- Email -->
+        <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showErrors(loginForm, 'email', ['required', 'email']) }">
+
+            <label for="email">Email Address</label>
+            
+            <!-- Description Icon -->
+            <span class="glyphicon glyphicon-envelope form-control-feedback description-icon"></span>
+
+            <input id="email" type="email" name="email" class="form-control" ng-model="user.email" ng-blur="validateOnBlur(loginForm, 'email')" required/>
+
+            <span ng-show="showErrors(loginForm, 'email', ['required', 'email'])" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+            
+            <!-- Error messages -->
+            <p class="help-block">
+                <span ng-show="showError(loginForm, 'email', 'required')">Please enter an email address.</span>
+                <span ng-show="showError(loginForm, 'email', 'email')">Invalid email format. Try again?</span>
+            </p>
+
         </div>
-        <div class="form-group">
+
+         <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showErrors(loginForm, 'password', ['required', 'minlength']) }">
+
             <label for="password">Password</label>
             <a href="" class="pull-right">forgot your password</a>
-            <input required id="password" type="password" name="password" placeholder="Password" class="form-control" ng-model="user.password"/>
+
+            <!-- Description Icon -->
+            <span class="glyphicon glyphicon-lock form-control-feedback description-icon"></span>
+
+            <input id="password" type="password" name="password" class="form-control" ng-model="user.password" ng-minlength="8" ng-blur="validateOnBlur(loginForm, 'password'); isCapsLockOn = false" ng-keypress="checkCapsLock($event)" required/>
+
+            <span ng-show="showErrors(loginForm, 'password', ['required', 'minlength'])" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+            
+            <!-- Error messages -->
+            <p class="help-block">
+                <span ng-show="showError(loginForm, 'password', 'required')">Please enter a password.</span>
+                <span ng-show="showError(loginForm, 'password', 'minlength')">Password length too short (min. 8 characters). Try again?</span>
+                <span ng-show="isCapsLockOn" class="help-message">Note: your caps lock is on.  Passwords are case-sensitive.</span>
+            </p>
+
         </div>
+
         <div class="form-group">
             <div class="checkbox">
                 <label>

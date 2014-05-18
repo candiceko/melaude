@@ -5,32 +5,96 @@ angular.module('mean.controllers.login', [])
         function($scope, $rootScope, $http, $location) {
             // This object will be filled by the form
             $scope.user = {};
+            $scope.showDisplayErrors = false;
+            $scope.showIndividualDisplayErrors = {};
+            $scope.isCapsLockOn = false;
+
+            var showNotifications = function( isSuccess, form, name, errors ) {
+
+                var show = isSuccess;
+
+                if ( !Array.isArray(errors) ) { return false; }
+
+                if ( !$scope.showDisplayErrors && !$scope.showIndividualDisplayErrors[name] ) { return false; }
+
+                errors.every(function( val ) {
+                    if ( form[name].$error[val] ) {
+                        show = !isSuccess;
+
+                        return false;
+                    }
+                    return true;
+                });
+
+                return show;
+            };
+
+            var isCapsLockOn = function ( e ) {
+                e = (e) ? e : window.event;
+
+                var kc = ( e.keyCode ) ? e.keyCode : e.which; // get keycode
+                var isUp = (kc >= 65 && kc <= 90) ? true : false; // uppercase
+                var isLow = (kc >= 97 && kc <= 122) ? true : false; // lowercase
+                var isShift = ( e.shiftKey ) ? e.shiftKey : ( (kc === 16) ? true : false ); // shift is pressed -- works for IE8-
+
+                // uppercase w/out shift or lowercase with shift == caps lock
+                if ( (isUp && !isShift) || (isLow && isShift) ) {
+                    return true;
+                }
+
+                return false;
+            };
 
             // Register the login() function
-            $scope.login = function() {
-                $http.post('/login', {
-                    email: $scope.user.email,
-                    password: $scope.user.password
-                })
-                    .success(function(response) {
-                        // authentication OK
-                        $scope.loginError = 0;
-                        $rootScope.user = response.user;
-                        $rootScope.$emit('loggedin');
-                        if (response.redirect) {
-                            if (window.location.href === response.redirect) {
-                                //This is so an admin user will get full admin page
-                                window.location.reload();
-                            } else {
-                                window.location = response.redirect;
-                            }
-                        } else {
-                            $location.url('/');
-                        }
+            $scope.login = function( form ) {
+                if ( form.$valid ) {
+                    $http.post('/login', {
+                        email: $scope.user.email,
+                        password: $scope.user.password
                     })
-                    .error(function() {
-                        $scope.loginerror = 'Authentication failed.';
-                    });
+                        .success(function(response) {
+                            // authentication OK
+                            $scope.loginError = 0;
+                            $rootScope.user = response.user;
+                            $rootScope.$emit('loggedin');
+                            if (response.redirect) {
+                                if (window.location.href === response.redirect) {
+                                    //This is so an admin user will get full admin page
+                                    window.location.reload();
+                                } else {
+                                    window.location = response.redirect;
+                                }
+                            } else {
+                                $location.url('/');
+                            }
+                        })
+                        .error(function() {
+                            $scope.loginerror = 'Authentication failed.';
+                        });
+                } else {
+                    $scope.showDisplayErrors = true;
+                }
+            };
+
+            $scope.showError = function( form, name, error ) {
+                return ($scope.showDisplayErrors || $scope.showIndividualDisplayErrors[name]) && form[name].$error[error];
+            };
+
+            $scope.showErrors = function( form, name, errors ) {
+                return showNotifications(false, form, name, errors);
+            };
+
+            $scope.validateOnBlur = function( form, name ) {
+                if ( !form[name].$viewValue ) { 
+                    $scope.showIndividualDisplayErrors[name] = false;
+                    return; 
+                }
+
+                $scope.showIndividualDisplayErrors[name] = true;
+            };
+
+            $scope.checkCapsLock = function( e ) {
+                $scope.isCapsLockOn = isCapsLockOn(e);
             };
         }
     ])
