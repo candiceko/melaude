@@ -1,25 +1,72 @@
-<div data-ng-controller="RegisterCtrl">
-    <div ng-repeat="error in registerError">
+<div data-ng-controller="RegisterCtrl" class="registration">
+    <!-- <div ng-repeat="error in registerError">
         <div class="alert alert-danger animated fadeIn">{{error.msg}}</div>
     </div>
-    <div class="alert alert-danger animated fadeIn" ng-show="usernameError">{{usernameError}}</div>
+    <div class="alert alert-danger animated fadeIn" ng-show="emailError">{{emailError}}</div> -->
 
     <h1>make your account (it's free)</h1>
-    <form ng-submit="register()" class="signup form-horizontal">
-        <div class="form-group">
-            <label for="name">Display Name</label>
-            <input id="name" type="text" name="name" placeholder="Display Name" class="form-control" ng-model="user.name"/>
+    <form ng-submit="register(registrationForm)" name="registrationForm" class="signup" novalidate>
+        
+        <!-- Display Name -->
+        <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showError(registrationForm, 'name', 'required'), 'has-success': showSuccess(registrationForm, 'name', ['required']) }">
+
+            <label for="name">Display Name&nbsp;<span class="glyphicon glyphicon-question-sign question-mark-icon" tooltip="Your display name is what other users will see on melaude.  We enourage real names around here, but feel free to choose whatever fits you best.  Don't worry too much about choosing the perfect name&mdash;you can change it later on."></span></label>
+            
+            <!-- Description Icon -->
+            <span class="glyphicon glyphicon-user form-control-feedback description-icon"></span>
+
+            <input id="name" type="text" name="name" placeholder="Display Name" class="form-control" ng-model="user.name" required/>
+            
+            <!-- Feedback -->
+            <span ng-show="showError(registrationForm, 'name', 'required')" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+            <span ng-show="showSuccess(registrationForm, 'name', ['required'])" class="glyphicon glyphicon-ok form-control-feedback"></span>
+
+            <!-- Error messages -->
+            <p class="help-block">
+                <span ng-show="showError(registrationForm, 'name', 'required')">Please enter a display name.&nbsp;</span>
+                <span class="help-message">We prefer real names around these parts.</span>
+            </p>
+
         </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input id="email" type="email" name="email" placeholder="Email" class="form-control" ng-model="user.email"/>
+        
+        <!-- Email -->
+        <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showErrors(registrationForm, 'email', ['required', 'email']) || emailError }">
+
+            <label for="email">Email Address&nbsp;<span class="glyphicon glyphicon-question-sign question-mark-icon" tooltip="Your email address is what you'll use to log back in to melaude.  Make sure it's legit&mdash;we'll be sending a verification email to your inbox."></span></label>
+            
+            <!-- Description Icon -->
+            <span class="glyphicon glyphicon-envelope form-control-feedback description-icon"></span>
+
+            <input id="email" type="email" name="email" placeholder="Email" class="form-control" ng-model="user.email" required/>
+
+            <span ng-show="showSuccess(registrationForm, 'email', ['required', 'email'])" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-show="showErrors(registrationForm, 'email', ['required', 'email'])" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+            
+            <!-- Error messages -->
+            <p class="help-block">
+                <span ng-show="showError(registrationForm, 'email', 'required')">Please enter an email address.</span>
+                <span ng-show="showError(registrationForm, 'email', 'email')">That email doesn't look valid. Try again?</span>
+                <span ng-show="emailError">The email address is already in use.&nbsp;<span class="help-message"><a ui-sref='auth.login'>Sign in</a> instead?</span></span>
+            </p>
+
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input id="password" type="password" name="password" placeholder="Minimum 8 characters" class="form-control" ng-model="user.password"/>
+        <div class="form-group has-feedback has-description-icon">
+
+            <label for="password">Password&nbsp;<span class="glyphicon glyphicon-question-sign question-mark-icon" tooltip="Your password must be at least 8 charaters in length.  For security, it's best to use a combination of numbers, letters, and special characters."></span></label>
+
+            <!-- Description Icon -->
+            <span class="glyphicon glyphicon-lock form-control-feedback description-icon"></span>
+
+            <input id="password" type="password" name="password" placeholder="Minimum 8 characters" class="form-control" ng-model="user.password" required/>
+            
         </div>
-        <div class="form-group">
-            <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm password" class="form-control" ng-model="user.confirmPassword"/>
+        <div class="form-group has-feedback has-description-icon no-label">
+
+            <!-- Description Icon -->
+            <span class="glyphicon glyphicon-lock form-control-feedback description-icon"></span>
+
+            <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm password" class="form-control" ng-model="user.confirmPassword" required/>
+
         </div>
         <div class="form-group">
             <div class="checkbox">
@@ -31,7 +78,7 @@
         <div class="form-group">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox">&nbsp;I have read and agree to melaud's <a href="">Terms of Use</a> and <a href="">Privacy Agreement</a>
+                    <input type="checkbox" required>&nbsp;I have read and agree to melaud's <a href="">Terms of Use</a> and <a href="">Privacy Agreement</a>
                 </label>
             </div>
         </div>

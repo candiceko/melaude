@@ -40,3 +40,21 @@ footer {
 footer p {
     padding:5px 0 12px 10px
 }
+
+/** Registration Form **/
+.registration .has-error .help-block .help-message {
+    color: #737373;
+}
+
+.has-feedback.has-description-icon .description-icon {
+    left: 0;
+    color: gray;
+}
+
+.has-feedback.has-description-icon.no-label .description-icon {
+    top: 0;
+}
+
+.has-feedback.has-description-icon .form-control {
+    padding-left: 34px;
+}
