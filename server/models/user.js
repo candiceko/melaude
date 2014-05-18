@@ -15,11 +15,15 @@ var UserSchema = new Schema({
         type: String,
         required: true
     },
-    email: String,
-    // username: {
-    //     type: String,
-    //     unique: true
-    // },
+    email: { 
+        type: String,
+        required: true,
+        unique: true
+    },
+    username: {
+        type: String,
+        unique: true
+    },
     roles: {
         type: Array,
         default: ['authenticated']

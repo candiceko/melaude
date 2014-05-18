@@ -38,6 +38,8 @@ angular.module('mean.controllers.login', [])
         function($scope, $rootScope, $http, $location) {
             $scope.user = {};
             $scope.showDisplayErrors = false;
+            $scope.agreement = null;
+            $scope.passwordStrength = null;
 
             var showNotifications = function( isSuccess, form, name, errors ) {
 
@@ -67,15 +69,12 @@ angular.module('mean.controllers.login', [])
                 $scope.emailError = null;
                 $scope.registerError = null;
                 $scope.unmatchedPasswordsError = null;
-                $scope.agreement = null;
-                $scope.passwordStrength = null;
 
                 if ( form.$valid && comparePasswords() ) {
                     $http.post('/register', {
                         email: $scope.user.email,
                         password: $scope.user.password,
                         confirmPassword: $scope.user.confirmPassword,
-                        username: $scope.user.username,
                         name: $scope.user.name
                     })
                         .success(function() {

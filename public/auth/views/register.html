@@ -5,7 +5,7 @@
     <div class="alert alert-danger animated fadeIn" ng-show="emailError">{{emailError}}</div> -->
 
     <h1>make your account (it's free)</h1>
-    <form ng-submit="register(registrationForm)" name="registrationForm" class="signup" novalidate>
+    <form  ng-submit="register(registrationForm)" name="registrationForm" class="signup" novalidate>
         
         <!-- Display Name -->
         <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showError(registrationForm, 'name', 'required'), 'has-success': showSuccess(registrationForm, 'name', ['required']) }">

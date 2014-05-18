@@ -45,6 +45,9 @@ exports.create = function(req, res, next) {
     var user = new User(req.body);
 
     user.provider = 'local';
+    user.username = user.email;
+
+    console.log(user);
 
     // because we set our user.provider to local our models/user.js validation will always be true
     req.assert('email', 'You must enter a valid email address').isEmail();
