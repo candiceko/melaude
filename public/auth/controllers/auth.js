@@ -213,8 +213,6 @@ angular.module('mean.controllers.login', [])
                 else if ( strength < 50 ) {
                     $scope.passwordStrength = 1;
                 }
-
-                console.log(strength);
             };
 
             $scope.showPasswordError = function( form, name, error ) {

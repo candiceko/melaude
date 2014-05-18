@@ -63,6 +63,7 @@ footer p {
 .password-strength-wrapper {
     height: 100%;
     margin-top: 3px;
+    margin-bottom: -5px;
 }
 
 .password-strength-wrapper > .strength-indicators {
@@ -113,4 +114,10 @@ footer p {
 .password-strength-wrapper.password-strength-4 .strength-indicator-wrapper:nth-child(4) > .strength-indicator-content
 {
     background-color: green;
+}
+
+/** Navigation **/
+.navbar-nav > li > span {
+    display: block;
+    padding: 15px;
 }

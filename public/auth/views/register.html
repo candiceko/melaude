@@ -62,7 +62,7 @@
             <span ng-show="showPasswordSuccess(registrationForm, 'password', ['required'])" class="glyphicon glyphicon-ok form-control-feedback"></span>
             <span ng-show="showPasswordError(registrationForm, 'password', 'required')" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
 
-            <div class="password-strength-wrapper password-strength-{{passwordStrength}}">
+            <div ng-show="passwordStrength" class="password-strength-wrapper password-strength-{{passwordStrength}}">
                 <div class="strength-indicators">
                     <div class="strength-indicator-wrapper">
                         <div class="strength-indicator-content"></div>

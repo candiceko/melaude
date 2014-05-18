@@ -1,6 +1,6 @@
 <div class="page-header" data-ng-controller="HeaderController">
   <div class="logo pull-left">
-    <a class="navbar-brand" href="/" mean-token="'site-title'">Melaude</a>
+    <a class="navbar-brand" href="/" mean-token="'site-title'">melaude</a>
   </div>
 
   <div class="left pull-left">
@@ -16,10 +16,10 @@
       <div class="pull-right" data-ng-show="global.authenticated" mean-token-editable></div>
     </div>
     <ul class="navbar-nav nav" data-ng-hide="global.authenticated">
-        <li><a ui-sref='auth.register'>Register</a>
+        <li ng-if="isState('auth.login')"><span><strong><a>help</a> / <a>faq</a></strong></span>
         </li>
         <li class="divider-vertical"></li>
-        <li><a ui-sref='auth.login'>Login</a>
+        <li ng-if="isState('auth.register')"><span>already have an account?&nbsp;<a ui-sref='auth.login'><strong>log in</strong></a></span>
         </li>
     </ul>
     <ul class="navbar-nav nav" data-ng-show="global.authenticated">

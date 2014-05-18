@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.system').controller('HeaderController', ['$scope', '$rootScope', 'Global', 'Menus',
-    function($scope, $rootScope, Global, Menus) {
+angular.module('mean.system').controller('HeaderController', ['$scope', '$rootScope', '$state', 'Global', 'Menus',
+    function($scope, $rootScope, $state, Global, Menus) {
         $scope.global = Global;
         $scope.menus = {};
 
@@ -34,5 +34,9 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$rootSc
             };
         });
 
+        $scope.isState = function( state ) {
+
+            return $state.current.name === state;
+        };
     }
 ]);
