@@ -58,3 +58,59 @@ footer p {
 .has-feedback.no-label .form-control-feedback {
     top: 0;
 }
+
+/** Password Strength **/
+.password-strength-wrapper {
+    height: 100%;
+    margin-top: 3px;
+}
+
+.password-strength-wrapper > .strength-indicators {
+    height: 2px;
+}
+
+.password-strength-wrapper > .strength-indicators > .strength-indicator-wrapper {
+    height: 100%;
+    width: calc(100% / 4);
+    display: inline-block;
+    margin-right: -4px;
+    vertical-align: top;
+    padding: 0 3%;
+}
+
+.password-strength-wrapper > .strength-indicators > .strength-indicator-wrapper > .strength-indicator-content {
+    height: 100%;
+    background-color: gray;
+}
+
+.password-strength-wrapper > .indicator-message {
+    text-align: right;
+    margin-right: 3%;
+    font-size: small;
+    color: #737373;
+}
+
+.password-strength-wrapper.password-strength-1 .strength-indicator-wrapper:nth-child(1) > .strength-indicator-content {
+    background-color: indianred;
+}
+
+.password-strength-wrapper.password-strength-2 .strength-indicator-wrapper:nth-child(1) > .strength-indicator-content,
+.password-strength-wrapper.password-strength-2 .strength-indicator-wrapper:nth-child(2) > .strength-indicator-content
+{
+    background-color: yellow;
+}
+
+.password-strength-wrapper.password-strength-3 .strength-indicator-wrapper:nth-child(1) > .strength-indicator-content,
+.password-strength-wrapper.password-strength-3 .strength-indicator-wrapper:nth-child(2) > .strength-indicator-content,
+.password-strength-wrapper.password-strength-3 .strength-indicator-wrapper:nth-child(3) > .strength-indicator-content
+{
+    background-color: lightgreen;
+}
+
+.password-strength-wrapper.password-strength-4 .strength-indicator-wrapper:nth-child(1) > .strength-indicator-content,
+.password-strength-wrapper.password-strength-4 .strength-indicator-wrapper:nth-child(2) > .strength-indicator-content,
+.password-strength-wrapper.password-strength-4 .strength-indicator-wrapper:nth-child(3) > .strength-indicator-content,
+.password-strength-wrapper.password-strength-4 .strength-indicator-wrapper:nth-child(4) > .strength-indicator-content
+{
+    background-color: green;
+}

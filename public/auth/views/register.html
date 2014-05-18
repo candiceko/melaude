@@ -50,22 +50,45 @@
             </p>
 
         </div>
-        <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showErrors(registrationForm, 'password', ['required', 'minlength']), 'has-success': showSuccess(registrationForm, 'password', ['required', 'minlength']) }">
+        <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showPasswordError(registrationForm, 'password', 'required'), 'has-success': showPasswordSuccess(registrationForm, 'password', ['required']) }">
 
             <label for="password">Password&nbsp;<span class="glyphicon glyphicon-question-sign question-mark-icon" tooltip="Your password must be at least 8 charaters in length.  For security, it's best to use a combination of numbers, letters, and special characters."></span></label>
 
             <!-- Description Icon -->
             <span class="glyphicon glyphicon-lock form-control-feedback description-icon"></span>
 
-            <input id="password" type="password" name="password" placeholder="Minimum 8 characters" class="form-control" ng-model="user.password" ng-minlength="8" required/>
+            <input id="password" type="password" name="password" placeholder="Minimum 8 characters" class="form-control" ng-model="user.password" ng-change="checkPasswordStrength()" required/>
 
-            <span ng-show="showSuccess(registrationForm, 'password', ['required', 'minlength'])" class="glyphicon glyphicon-ok form-control-feedback"></span>
-            <span ng-show="showErrors(registrationForm, 'password', ['required', 'minlength'])" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+            <span ng-show="showPasswordSuccess(registrationForm, 'password', ['required'])" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-show="showPasswordError(registrationForm, 'password', 'required')" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+
+            <div class="password-strength-wrapper password-strength-{{passwordStrength}}">
+                <div class="strength-indicators">
+                    <div class="strength-indicator-wrapper">
+                        <div class="strength-indicator-content"></div>
+                    </div>
+                    <div class="strength-indicator-wrapper">
+                        <div class="strength-indicator-content"></div>
+                    </div>
+                    <div class="strength-indicator-wrapper">
+                        <div class="strength-indicator-content"></div>
+                    </div>
+                    <div class="strength-indicator-wrapper">
+                        <div class="strength-indicator-content"></div>
+                    </div>
+                </div>
+                <div class="indicator-message">
+                    <span ng-show="passwordStrength === 1">weeeak</span>
+                    <span ng-show="passwordStrength === 2">not bad</span>
+                    <span ng-show="passwordStrength === 3">pretty good</span>
+                    <span ng-show="passwordStrength === 4">now, THAT'S a solid password</span>
+                </div>
+            </div>
             
             <!-- Error messages -->
             <p class="help-block">
                 <span ng-show="showError(registrationForm, 'password', 'required')">Please enter a password.</span>
-                <span ng-show="showError(registrationForm, 'password', 'minlength')">Your password needs to be at least 8 characters long.</span>
+                <span ng-show="validatePasswordMinLength()">Your password needs to be at least 8 characters long.</span>
             </p>
 
         </div>
