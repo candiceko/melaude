@@ -42,7 +42,7 @@ footer p {
 }
 
 /** Registration Form **/
-.registration .has-error .help-block .help-message {
+.registration .has-error .help-block .help-message, .registration .has-success .help-block .help-message {
     color: #737373;
 }
 
@@ -51,10 +51,10 @@ footer p {
     color: gray;
 }
 
-.has-feedback.has-description-icon.no-label .description-icon {
-    top: 0;
-}
-
 .has-feedback.has-description-icon .form-control {
     padding-left: 34px;
+}
+
+.has-feedback.no-label .form-control-feedback {
+    top: 0;
 }

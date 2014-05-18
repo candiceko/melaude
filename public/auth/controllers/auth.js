@@ -59,11 +59,17 @@ angular.module('mean.controllers.login', [])
                 return show;
             };
 
+            var comparePasswords = function() {
+                return $scope.user.password === $scope.user.confirmPassword;
+            };
+
             $scope.register = function( form ) {
                 $scope.emailError = null;
                 $scope.registerError = null;
+                $scope.unmatchedPasswordsError = null;
+                $scope.agreement = null;
 
-                if ( form.$valid ) {
+                if ( form.$valid && comparePasswords() ) {
                     $http.post('/register', {
                         email: $scope.user.email,
                         password: $scope.user.password,
@@ -104,6 +110,20 @@ angular.module('mean.controllers.login', [])
 
             $scope.showSuccess = function( form, name, errors ) {
                 return showNotifications(true, form, name, errors);
+            };
+
+            $scope.showConfirmPasswordError = function() {
+                if ( !$scope.user.password ) { return false; }
+
+                return !comparePasswords() && $scope.showDisplayErrors;
+            };
+
+            $scope.showConfirmPasswordSuccess = function() {
+                if ( !$scope.user.password ) { return false; }
+
+                if ( !$scope.showDisplayErrors ) { return false; }
+
+                return comparePasswords();
             };
         }
     ]);
