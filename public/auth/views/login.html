@@ -2,6 +2,21 @@
    <!--  <div class="alert alert-danger animated fadeIn" ng-show="hasLoginError">{{hasLoginError}}</div> -->
     <h1>sign in</h1>
     <form  ng-submit="login(loginForm)" name="loginForm" class="signin" novalidate>
+        
+        <!-- Honeypot -->
+        <div class="form-group has-feedback has-description-icon password-field" ng-show="showUsername">
+            <label for="username">Username</label>
+
+            <span class="glyphicon glyphicon-user form-control-feedback description-icon"></span>
+
+            <input id="username" type="text" name="username" class="form-control" ng-model="user.username">
+            
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+
+            <p class="help-block">
+                <span>Please enter a username.</span>
+            </p>
+        </div>
 
          <!-- Email -->
         <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showErrors(loginForm, 'email', ['required', 'email']) }">
@@ -23,10 +38,10 @@
 
         </div>
 
-         <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showErrors(loginForm, 'password', ['required', 'minlength']) }">
+         <div class="form-group has-feedback has-description-icon password-field" ng-class="{ 'has-error': showErrors(loginForm, 'password', ['required', 'minlength']) }">
 
             <label for="password">Password</label>
-            <a href="" class="pull-right" ui-sref="auth.forgotPassword">forgot your password</a>
+            <a ui-sref="auth.forgotPassword"><strong>forgot your password</strong></a>
 
             <!-- Description Icon -->
             <span class="glyphicon glyphicon-lock form-control-feedback description-icon"></span>
@@ -47,7 +62,7 @@
         <div class="form-group">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox">&nbsp;stay signed in
+                    <input type="checkbox" ng-model="user.rememberMe">&nbsp;stay signed in
                 </label>
             </div>
         </div>
@@ -62,7 +77,7 @@
             </button>&nbsp;
         </div>
         <div class="form-group text-center">
-            <span>don't have an account?&nbsp;<a ui-sref='auth.register'>sign up for free</a></span>
+            <span>don't have an account?&nbsp;<a ui-sref='auth.register'><strong>sign up for free</strong></a></span>
         </div>
     </form>
 </div>

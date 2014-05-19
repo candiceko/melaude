@@ -41,6 +41,8 @@ footer p {
     padding:5px 0 12px 10px
 }
 
+/** Uncategorized **/
+
 .help-block {
     font-size: 11px;
 }
@@ -49,9 +51,12 @@ a:hover {
     cursor: pointer;
 }
 
+button[type="submit"] {
+    border-radius: 15px;
+}
+
 /** Registration Form **/
-.registration .has-error .help-block .help-message, .registration .has-success .help-block .help-message,
-.login .has-error .help-block .help-message, .login .has-success .help-block .help-message {
+.registration .has-error .help-block .help-message, .registration .has-success .help-block .help-message {
     color: #737373;
 }
 
@@ -123,6 +128,24 @@ a:hover {
 .password-strength-wrapper.password-strength-4 .strength-indicator-wrapper:nth-child(4) > .strength-indicator-content
 {
     background-color: green;
+}
+
+/** Login **/
+
+.login .has-error .help-block .help-message, .login .has-success .help-block .help-message {
+    color: #737373;
+}
+
+.login .password-field > label, .login .password-field > a {
+    margin-right: -4px;
+    width: 50%;
+}
+
+.login .password-field > a {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: right;
+    font-size: 11px;
 }
 
 /** Navigation **/

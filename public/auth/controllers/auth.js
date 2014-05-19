@@ -11,6 +11,7 @@ angular.module('mean.controllers.login', [])
             $scope.isSigningIn = false;
             $scope.signInAttempts = 0;
             $scope.maxSignInAttempts = 1;
+            $scope.showUsername = false;
 
             var showNotifications = function( isSuccess, form, name, errors ) {
 
@@ -50,13 +51,14 @@ angular.module('mean.controllers.login', [])
 
             // Register the login() function
             $scope.login = function( form ) {
-                if ( form.$valid ) {
+                if ( form.$valid && !$scope.user.username ) {
                     $scope.isSigningIn = true;
                     $scope.hasLoginError = false;
 
                     $http.post('/login', {
                         email: $scope.user.email,
-                        password: $scope.user.password
+                        password: $scope.user.password,
+                        rememberMe: $scope.user.rememberMe
                     })
                         .success(function(response) {
 
