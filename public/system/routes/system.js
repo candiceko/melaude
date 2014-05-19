@@ -14,6 +14,10 @@ angular.module('mean.system').config(['$stateProvider', '$urlRouterProvider',
                 })
                 .state('auth', {
                     templateUrl: 'public/auth/views/index.html'
+                })
+                .state('createProfile', {
+                    url: '/create-profile',
+                    templateUrl: 'public/system/views/create-profile.html'
                 });
         }
     ])

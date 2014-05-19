@@ -75,7 +75,7 @@ angular.module('mean.controllers.login', [])
                                         window.location = response.redirect;
                                     }
                                 } else {
-                                    $location.url('/');
+                                    $location.url('/create-profile');
                                 }
                                 $scope.$apply();
                             }, 1500);
@@ -265,16 +265,16 @@ angular.module('mean.controllers.login', [])
                 return showNotifications(true, form, name, errors);
             };
 
-            $scope.showConfirmPasswordError = function() {
+            $scope.showConfirmPasswordError = function( name ) {
                 if ( !$scope.user.password ) { return false; }
 
-                return !comparePasswords() && $scope.showDisplayErrors;
+                return !comparePasswords() && ( $scope.showDisplayErrors || $scope.showIndividualDisplayErrors[name] );
             };
 
-            $scope.showConfirmPasswordSuccess = function() {
+            $scope.showConfirmPasswordSuccess = function( name ) {
                 if ( !$scope.user.password ) { return false; }
 
-                if ( !$scope.showDisplayErrors ) { return false; }
+                if ( !$scope.showDisplayErrors && !$scope.showIndividualDisplayErrors[name]  ) { return false; }
 
                 return comparePasswords();
             };
