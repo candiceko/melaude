@@ -1,5 +1,5 @@
 <div data-ng-controller="LoginCtrl" class="login">
-    <div class="alert alert-danger animated fadeIn" ng-show="loginerror">{{loginerror}}</div>
+   <!--  <div class="alert alert-danger animated fadeIn" ng-show="hasLoginError">{{hasLoginError}}</div> -->
     <h1>sign in</h1>
     <form  ng-submit="login(loginForm)" name="loginForm" class="signin" novalidate>
 
@@ -26,7 +26,7 @@
          <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showErrors(loginForm, 'password', ['required', 'minlength']) }">
 
             <label for="password">Password</label>
-            <a href="" class="pull-right">forgot your password</a>
+            <a href="" class="pull-right" ui-sref="auth.forgotPassword">forgot your password</a>
 
             <!-- Description Icon -->
             <span class="glyphicon glyphicon-lock form-control-feedback description-icon"></span>
@@ -51,8 +51,15 @@
                 </label>
             </div>
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Sign in</button>&nbsp;
+        <div class="form-group" ng-class="{ 'has-error': hasLoginError }">
+            <p class="help-block">
+                <span ng-show="hasLoginError && !(signInAttempts >= maxSignInAttempts)">We couldn't log you in using those credentials.  Try again?</span>
+                <span ng-show="hasLoginError && (signInAttempts >= maxSignInAttempts)">You've made quite a few attempts already.  Would you like to try <a class="text-danger" ui-sref="auth.resetPassword"><strong>resetting your password</strong></a> instead?</span>
+            </p>
+            <button type="submit" class="btn btn-primary btn-block" ng-disabled="isSigningIn">
+                <span ng-show="isSigningIn">checking credentials...</span>
+                <span ng-show="!isSigningIn">sign in</span>
+            </button>&nbsp;
         </div>
         <div class="form-group text-center">
             <span>don't have an account?&nbsp;<a ui-sref='auth.register'>sign up for free</a></span>

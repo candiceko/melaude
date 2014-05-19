@@ -41,6 +41,14 @@ footer p {
     padding:5px 0 12px 10px
 }
 
+.help-block {
+    font-size: 11px;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
 /** Registration Form **/
 .registration .has-error .help-block .help-message, .registration .has-success .help-block .help-message,
 .login .has-error .help-block .help-message, .login .has-success .help-block .help-message {
