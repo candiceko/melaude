@@ -15,7 +15,7 @@
             <!-- Description Icon -->
             <span class="glyphicon glyphicon-user form-control-feedback description-icon"></span>
 
-            <input id="name" type="text" name="name" placeholder="Display Name" class="form-control" ng-model="user.name" required/>
+            <input id="name" type="text" name="name" placeholder="Display Name" class="form-control" ng-model="user.name" ng-blur="validateOnBlur(registrationForm, 'name')" autofocus required/>
             
             <!-- Feedback -->
             <span ng-show="showError(registrationForm, 'name', 'required')" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
@@ -37,7 +37,7 @@
             <!-- Description Icon -->
             <span class="glyphicon glyphicon-envelope form-control-feedback description-icon"></span>
 
-            <input id="email" type="email" name="email" placeholder="Email" class="form-control" ng-model="user.email" required/>
+            <input id="email" type="email" name="email" placeholder="Email" class="form-control" ng-model="user.email" ng-blur="validateOnBlur(registrationForm, 'email')" required/>
 
             <span ng-show="showSuccess(registrationForm, 'email', ['required', 'email'])" class="glyphicon glyphicon-ok form-control-feedback"></span>
             <span ng-show="showErrors(registrationForm, 'email', ['required', 'email'])" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
@@ -50,17 +50,17 @@
             </p>
 
         </div>
-        <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showPasswordError(registrationForm, 'password', 'required'), 'has-success': showPasswordSuccess(registrationForm, 'password', ['required']) }">
+        <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showErrors(registrationForm, 'password', ['required', 'minlength']), 'has-success': showSuccess(registrationForm, 'password', ['required', 'minlength']) }">
 
             <label for="password">Password&nbsp;<span class="glyphicon glyphicon-question-sign question-mark-icon" tooltip="Your password must be at least 8 charaters in length.  For security, it's best to use a combination of numbers, letters, and special characters."></span></label>
 
             <!-- Description Icon -->
             <span class="glyphicon glyphicon-lock form-control-feedback description-icon"></span>
 
-            <input id="password" type="password" name="password" placeholder="Minimum 8 characters" class="form-control" ng-model="user.password" ng-change="checkPasswordStrength()" required/>
+            <input id="password" type="password" name="password" ng-minlength="8" placeholder="Minimum 8 characters" class="form-control" ng-model="user.password" ng-change="checkPasswordStrength(registrationForm, 'password')" ng-blur="validateOnBlur(registrationForm, 'password')"  required/>
 
-            <span ng-show="showPasswordSuccess(registrationForm, 'password', ['required'])" class="glyphicon glyphicon-ok form-control-feedback"></span>
-            <span ng-show="showPasswordError(registrationForm, 'password', 'required')" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+            <span ng-show="showSuccess(registrationForm, 'password', ['required', 'minlength'])" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-show="showErrors(registrationForm, 'password', ['required', 'minlength'])" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
 
             <div ng-show="passwordStrength" class="password-strength-wrapper password-strength-{{passwordStrength}}">
                 <div class="strength-indicators">
@@ -88,7 +88,7 @@
             <!-- Error messages -->
             <p class="help-block">
                 <span ng-show="showError(registrationForm, 'password', 'required')">Please enter a password.</span>
-                <span ng-show="validatePasswordMinLength()">Your password needs to be at least 8 characters long.</span>
+                <span ng-show="showError(registrationForm, 'password', 'minlength')">Your password needs to be at least 8 characters long.</span>
             </p>
 
         </div>
@@ -97,7 +97,7 @@
             <!-- Description Icon -->
             <span class="glyphicon glyphicon-lock form-control-feedback description-icon"></span>
 
-            <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm password" class="form-control" ng-model="user.confirmPassword" required/>
+            <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm password" class="form-control" ng-model="user.confirmPassword" ng-blur="validateOnBlur(registrationForm, 'confirmPassword')" required/>
             
             <span ng-show="showConfirmPasswordSuccess()" class="glyphicon glyphicon-ok form-control-feedback"></span>
             <span ng-show="showConfirmPasswordError()" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
