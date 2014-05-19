@@ -11,6 +11,7 @@ angular.module('mean.controllers.login', [])
             $scope.signInAttempts = 0;
             $scope.maxSignInAttempts = 1;
             $scope.showUsername = false;
+            $scope.showIndividualDisplayErrors = {};
 
             var showNotifications = function( isSuccess, form, name, errors ) {
 
