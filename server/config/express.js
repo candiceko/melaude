@@ -73,6 +73,8 @@ module.exports = function(app, passport, db) {
 
     // Import your asset file
     var assets = require('./assets.json');
+    console.log('LOOK');
+    console.log(assetmanager);
     assetmanager.init({
         js: assets.js,
         css: assets.css,

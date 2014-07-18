@@ -9,7 +9,7 @@ angular.module('mean.controllers.login', [])
             $scope.isCapsLockOn = false;
             $scope.isSigningIn = false;
             $scope.signInAttempts = 0;
-            $scope.maxSignInAttempts = 1;
+            $scope.maxSignInAttempts = 6;
             $scope.showUsername = false;
             $scope.showIndividualDisplayErrors = {};
 
@@ -168,7 +168,7 @@ angular.module('mean.controllers.login', [])
                             $scope.registerError = 0;
                             $rootScope.user = $scope.user;
                             $rootScope.$emit('loggedin');
-                            $location.url('/');     
+                            $location.url('/create-profile');
                         })
                         .error(function(error) {
                             // Error: authentication failed

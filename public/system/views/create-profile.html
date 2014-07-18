@@ -1,0 +1,130 @@
+<div data-ng-controller="CreateProfileCtrl" class="create-profile">
+
+    <h1>hi, Christoph Waltz! tell us about yourself...</h1>
+    <form  ng-submit="register(profileForm)" name="profileForm" class="signup" novalidate>
+        
+        <!-- Display Name -->
+        <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showError(profileForm, 'name', 'required'), 'has-success': showSuccess(profileForm, 'name', ['required']) }">
+
+            <label for="name">Display Name&nbsp;<span class="glyphicon glyphicon-question-sign question-mark-icon" tooltip="Your display name is what other users will see on melaude.  We enourage real names around here, but feel free to choose whatever fits you best.  Don't worry too much about choosing the perfect name&mdash;you can change it later on."></span></label>
+            
+            <!-- Description Icon -->
+            <span class="glyphicon glyphicon-user form-control-feedback description-icon"></span>
+
+            <input id="name" type="text" name="name" placeholder="Display Name" class="form-control" ng-model="user.name" ng-blur="validateOnBlur(profileForm, 'name')" autofocus required/>
+            
+            <!-- Feedback -->
+            <span ng-show="showError(profileForm, 'name', 'required')" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+            <span ng-show="showSuccess(profileForm, 'name', ['required'])" class="glyphicon glyphicon-ok form-control-feedback"></span>
+
+            <!-- Error messages -->
+            <p class="help-block">
+                <span ng-show="showError(profileForm, 'name', 'required')">Please enter a display name.&nbsp;</span>
+                <span class="help-message">We prefer real names around these parts.</span>
+            </p>
+
+        </div>
+        
+        <!-- Email -->
+        <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showErrors(profileForm, 'email', ['required', 'email']) || emailError, 'has-success': showSuccess(profileForm, 'email', ['required', 'email']) }">
+
+            <label for="email">Email Address&nbsp;<span class="glyphicon glyphicon-question-sign question-mark-icon" tooltip="Your email address is what you'll use to log back in to melaude.  Make sure it's legit&mdash;we'll be sending a verification email to your inbox."></span></label>
+            
+            <!-- Description Icon -->
+            <span class="glyphicon glyphicon-envelope form-control-feedback description-icon"></span>
+
+            <input id="email" type="email" name="email" placeholder="Email" class="form-control" ng-model="user.email" ng-blur="validateOnBlur(profileForm, 'email')" required/>
+
+            <span ng-show="showSuccess(profileForm, 'email', ['required', 'email'])" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-show="showErrors(profileForm, 'email', ['required', 'email'])" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+            
+            <!-- Error messages -->
+            <p class="help-block">
+                <span ng-show="showError(profileForm, 'email', 'required')">Please enter an email address.</span>
+                <span ng-show="showError(profileForm, 'email', 'email')">That email doesn't look valid. Try again?</span>
+                <span ng-show="emailError">The email address is already in use.&nbsp;<span class="help-message"><a ui-sref='auth.login'>Sign in</a> instead?</span></span>
+            </p>
+
+        </div>
+        <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showErrors(profileForm, 'password', ['required', 'minlength']), 'has-success': showSuccess(profileForm, 'password', ['required', 'minlength']) }">
+
+            <label for="password">Password&nbsp;<span class="glyphicon glyphicon-question-sign question-mark-icon" tooltip="Your password must be at least 8 charaters in length.  For security, it's best to use a combination of numbers, letters, and special characters."></span></label>
+
+            <!-- Description Icon -->
+            <span class="glyphicon glyphicon-lock form-control-feedback description-icon"></span>
+
+            <input id="password" type="password" name="password" ng-minlength="8" placeholder="Minimum 8 characters" class="form-control" ng-model="user.password" ng-change="checkPasswordStrength(profileForm, 'password')" ng-blur="validateOnBlur(profileForm, 'password')"  required/>
+
+            <span ng-show="showSuccess(profileForm, 'password', ['required', 'minlength'])" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-show="showErrors(profileForm, 'password', ['required', 'minlength'])" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+
+            <div ng-show="passwordStrength" class="password-strength-wrapper password-strength-{{passwordStrength}}">
+                <div class="strength-indicators">
+                    <div class="strength-indicator-wrapper">
+                        <div class="strength-indicator-content"></div>
+                    </div>
+                    <div class="strength-indicator-wrapper">
+                        <div class="strength-indicator-content"></div>
+                    </div>
+                    <div class="strength-indicator-wrapper">
+                        <div class="strength-indicator-content"></div>
+                    </div>
+                    <div class="strength-indicator-wrapper">
+                        <div class="strength-indicator-content"></div>
+                    </div>
+                </div>
+                <div class="indicator-message">
+                    <span ng-show="passwordStrength === 1">weeeak</span>
+                    <span ng-show="passwordStrength === 2">not bad</span>
+                    <span ng-show="passwordStrength === 3">pretty good</span>
+                    <span ng-show="passwordStrength === 4">now, THAT'S a solid password</span>
+                </div>
+            </div>
+            
+            <!-- Error messages -->
+            <p class="help-block">
+                <span ng-show="showError(profileForm, 'password', 'required')">Please enter a password.</span>
+                <span ng-show="showError(profileForm, 'password', 'minlength')">Your password needs to be at least 8 characters long.</span>
+            </p>
+
+        </div>
+        <div class="form-group has-feedback has-description-icon no-label" ng-class="{ 'has-error': showConfirmPasswordError('confirmPassword'), 'has-success': showConfirmPasswordSuccess('confirmPassword') }">
+
+            <!-- Description Icon -->
+            <span class="glyphicon glyphicon-lock form-control-feedback description-icon"></span>
+
+            <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm password" class="form-control" ng-model="user.confirmPassword" ng-blur="validateOnBlur(profileForm, 'confirmPassword')" required/>
+            
+            <span ng-show="showConfirmPasswordSuccess('confirmPassword')" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-show="showConfirmPasswordError('confirmPassword')" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+
+            <!-- Error messages -->
+            <p class="help-block">
+                <span ng-show="showConfirmPasswordError('confirmPassword')">Oops, these passwords don't match.  Try again?</span>
+            </p>
+
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">&nbsp;I'd like to receive email updates from melaude.
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="agreement" name="agreement" required><span>&nbsp;I have read and agree to melaude's <a href="">Terms of Use</a> and <a href="">Privacy Agreement</a></span>
+                </label>
+
+                <!-- Error messages -->
+                <p class="help-block">
+                    <span class="text-danger" ng-show="showError(profileForm, 'agreement', 'required')">Please read and accept melaude's terms first.</span>
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">sign up</button>
+        </div>
+    </form>
+</div>
