@@ -1,8 +1,10 @@
 'use strict';
 
 angular.module('mean.controllers.login', [])
-    .controller('LoginCtrl', ['$scope', '$rootScope', '$http', '$location',
-        function($scope, $rootScope, $http, $location) {
+    .controller('LoginCtrl',
+        ['$scope', '$state', '$rootScope', '$http', '$location',
+        function($scope, $state, $rootScope, $http, $location) {
+
             // This object will be filled by the form
             $scope.user = {};
             $scope.showDisplayErrors = false;
@@ -75,7 +77,7 @@ angular.module('mean.controllers.login', [])
                                         window.location = response.redirect;
                                     }
                                 } else {
-                                    $location.url('/create-profile');
+                                    $state.go('createProfile');
                                 }
                                 $scope.$apply();
                             }, 1500);
@@ -106,9 +108,9 @@ angular.module('mean.controllers.login', [])
             };
 
             $scope.validateOnBlur = function( form, name ) {
-                if ( !form[name].$viewValue ) { 
+                if ( !form[name].$viewValue ) {
                     $scope.showIndividualDisplayErrors[name] = false;
-                    return; 
+                    return;
                 }
 
                 $scope.showIndividualDisplayErrors[name] = true;
@@ -180,10 +182,10 @@ angular.module('mean.controllers.login', [])
                         });
                 }
                 else {
-                    
+
                     $scope.showDisplayErrors = true;
                 }
-                
+
             };
 
             var getPasswordStrength = function( pw ) {
@@ -280,9 +282,9 @@ angular.module('mean.controllers.login', [])
             };
 
             $scope.checkPasswordStrength = function( form, name ) {
-                if ( !form[name].$viewValue ) { 
+                if ( !form[name].$viewValue ) {
                     $scope.passwordStrength = null;
-                    return; 
+                    return;
                 }
 
                 var strength = getPasswordStrength(form[name].$viewValue);
@@ -323,9 +325,9 @@ angular.module('mean.controllers.login', [])
             };
 
             $scope.validateOnBlur = function( form, name ) {
-                if ( !form[name].$viewValue ) { 
+                if ( !form[name].$viewValue ) {
                     $scope.showIndividualDisplayErrors[name] = false;
-                    return; 
+                    return;
                 }
 
                 $scope.showIndividualDisplayErrors[name] = true;

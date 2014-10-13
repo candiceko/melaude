@@ -3,11 +3,11 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Kevin Sison -- Software Engineer -- @kevinsison
+    Wesley Kiyohara -- Software Engineer -- @
+    Candice Ko -- Project Manager -- @
 
 # THANKS
-
-    <name>
 
 # TECHNOLOGY COLOPHON
 

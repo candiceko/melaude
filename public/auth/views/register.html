@@ -6,17 +6,17 @@
 
     <h1>make your account (it's free)</h1>
     <form  ng-submit="register(registrationForm)" name="registrationForm" class="signup" novalidate>
-        
+
         <!-- Display Name -->
         <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showError(registrationForm, 'name', 'required'), 'has-success': showSuccess(registrationForm, 'name', ['required']) }">
 
             <label for="name">Display Name&nbsp;<span class="glyphicon glyphicon-question-sign question-mark-icon" tooltip="Your display name is what other users will see on melaude.  We enourage real names around here, but feel free to choose whatever fits you best.  Don't worry too much about choosing the perfect name&mdash;you can change it later on."></span></label>
-            
+
             <!-- Description Icon -->
             <span class="glyphicon glyphicon-user form-control-feedback description-icon"></span>
 
             <input id="name" type="text" name="name" placeholder="Display Name" class="form-control" ng-model="user.name" ng-blur="validateOnBlur(registrationForm, 'name')" autofocus required/>
-            
+
             <!-- Feedback -->
             <span ng-show="showError(registrationForm, 'name', 'required')" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
             <span ng-show="showSuccess(registrationForm, 'name', ['required'])" class="glyphicon glyphicon-ok form-control-feedback"></span>
@@ -28,12 +28,12 @@
             </p>
 
         </div>
-        
+
         <!-- Email -->
         <div class="form-group has-feedback has-description-icon" ng-class="{ 'has-error': showErrors(registrationForm, 'email', ['required', 'email']) || emailError, 'has-success': showSuccess(registrationForm, 'email', ['required', 'email']) }">
 
             <label for="email">Email Address&nbsp;<span class="glyphicon glyphicon-question-sign question-mark-icon" tooltip="Your email address is what you'll use to log back in to melaude.  Make sure it's legit&mdash;we'll be sending a verification email to your inbox."></span></label>
-            
+
             <!-- Description Icon -->
             <span class="glyphicon glyphicon-envelope form-control-feedback description-icon"></span>
 
@@ -41,7 +41,7 @@
 
             <span ng-show="showSuccess(registrationForm, 'email', ['required', 'email'])" class="glyphicon glyphicon-ok form-control-feedback"></span>
             <span ng-show="showErrors(registrationForm, 'email', ['required', 'email'])" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-            
+
             <!-- Error messages -->
             <p class="help-block">
                 <span ng-show="showError(registrationForm, 'email', 'required')">Please enter an email address.</span>
@@ -84,7 +84,7 @@
                     <span ng-show="passwordStrength === 4">now, THAT'S a solid password</span>
                 </div>
             </div>
-            
+
             <!-- Error messages -->
             <p class="help-block">
                 <span ng-show="showError(registrationForm, 'password', 'required')">Please enter a password.</span>
@@ -98,7 +98,7 @@
             <span class="glyphicon glyphicon-lock form-control-feedback description-icon"></span>
 
             <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm password" class="form-control" ng-model="user.confirmPassword" ng-blur="validateOnBlur(registrationForm, 'confirmPassword')" required/>
-            
+
             <span ng-show="showConfirmPasswordSuccess('confirmPassword')" class="glyphicon glyphicon-ok form-control-feedback"></span>
             <span ng-show="showConfirmPasswordError('confirmPassword')" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
 

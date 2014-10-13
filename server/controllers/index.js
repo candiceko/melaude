@@ -14,7 +14,7 @@ exports.render = function(req, res) {
             angularDependencies: mean.modules[name].angularDependencies
         });
     }
-    
+
     // Send some basic starting info to the view
     res.render('index', {
         user: req.user ? {
